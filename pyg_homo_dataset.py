@@ -3,8 +3,23 @@ import numpy as np
 from sketchgraphs_models.graph.dataset import graph_info_from_sequence
 from sketchgraphs.data import sketch as data_sketch, sequence as data_sequence
 from torch_geometric.data import Data
+from sketchgraphs_models.graph import dataset
+from sketchgraphs_models.graph.train.data_loading import load_sequences_and_mappings
 
-class GraphDataset(torch.utils.data.Dataset):
+def load_homogeneous_dataset(dataset_file, auxiliary_file, quantization, seed=None,
+                             force_entity_categorical_features=False):
+    data = load_sequences_and_mappings(dataset_file, auxiliary_file, quantization, False, False)
+
+    if data['entity_feature_mapping'] is None and force_entity_categorical_features:
+        # Create an entity mapping which only computes the categorical features (i.e. isConstruction and clockwise)
+        data['entity_feature_mapping'] = dataset.EntityFeatureMapping()
+
+    return HomogeneousGraphDataset(
+        data['sequences'], data['entity_feature_mapping'], data['edge_feature_mapping'], seed=seed), data['weights']
+
+
+
+class HomogeneousGraphDataset(torch.utils.data.Dataset):
 
     def __init__(self, sequences, node_feature_mapping=None, edge_feature_mapping=None, seed=None):
         self.sequences = sequences
