@@ -15,6 +15,7 @@ dependencies:
   - tqdm
   - lz4
   - pygraphviz
+  - tensorboard
   - pip:
     - torch-geometric
     - torch-sparse
