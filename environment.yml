@@ -1,0 +1,22 @@
+name: cad
+channels:
+  - conda-forge
+  - pyg
+dependencies:
+  - ipykernel
+  - numpy
+  - pytest
+  - pytorch
+  - pandas
+  - python=3.9
+  - tqdm
+  - matplotlib
+  - black
+  - tqdm
+  - lz4
+  - pygraphviz
+  - pip:
+    - torch-geometric
+    - torch-sparse
+    - torch-scatter
+prefix: /opt/homebrew/Caskroom/mambaforge/base/envs/cad
