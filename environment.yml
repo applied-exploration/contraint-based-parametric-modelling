@@ -17,6 +17,8 @@ dependencies:
   - pygraphviz
   - tensorboard
   - torchmetrics
+  - networkx
+  - pip
   - pip:
     - torch-geometric
     - torch-sparse
